@@ -19,9 +19,9 @@ import javax.sql.DataSource;
 public class LoginServlet extends HttpServlet {
 
 	/**
-	 * Control de versión
+	 * Revisión de versión
 	 */
-	private static final long serialVersionUID = 5953181764008379606L;
+	private static final long serialVersionUID = -7835560411816124803L;
 
 	// Pool de conexiones a la base de datos
 	private DataSource pool;
