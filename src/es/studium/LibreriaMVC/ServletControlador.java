@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.Iterator;
 import java.util.List;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -18,7 +19,11 @@ import javax.servlet.http.HttpSession;
 /**
 * Servlet implementation class ServletControlador
 */
-@WebServlet("/ServletControlador")
+@WebServlet(
+		name = "Controlador",
+		urlPatterns = {"/shopping"}
+)
+
 public class ServletControlador extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
@@ -129,10 +134,11 @@ public class ServletControlador extends HttpServlet {
 
             //Redirige a checkout.jsp
             nextPage = "/checkout.jsp";
-}
-ServletContext servletContext = getServletContext();
-RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher(nextPage);
-requestDispatcher.forward(request, response);
-}
+
+        }
+        ServletContext servletContext = getServletContext();
+        RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher(nextPage);
+        requestDispatcher.forward(request, response);
+    }
 }
 
