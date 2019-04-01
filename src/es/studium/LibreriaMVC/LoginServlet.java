@@ -14,7 +14,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.annotation.WebServlet;
 import javax.sql.DataSource;
+
+/**
+ * Indicamos datos de identificación del Servlet
+ */
+@WebServlet(
+		name = "LoginServlet",
+		urlPatterns = {"/login"}
+		)
 
 public class LoginServlet extends HttpServlet {
 
@@ -60,22 +69,24 @@ public class LoginServlet extends HttpServlet {
 				
 				// Validar los parámetros de la petición request
 				if(usuario.length() == 0) {
-					out.println("<h3>Debes introducir tu usuario</h3>");
+					out.println("<h3>Debes introducir tu usuario...</h3>");
 				} else if (password.length()==0) {
-					out.println("<h3>Debes introducir tu contraseña</h3>");
+					out.println("<h3>Debes introducir tu contraseña...</h3>");
 				} else {
 					// Verificar que existe el usuario y su correspondiente	clave
 					StringBuilder sqlStr = new StringBuilder();
 					sqlStr.append("SELECT * FROM usuarios WHERE ");
 					sqlStr.append("STRCMP(usuarios.nombreUsuario,'").append(usuario).append("') = 0");
-					sqlStr.append(" AND STRCMP(usuarios.claveUsuario,PASSWORD('").append(password).append("')) = 0");
+					sqlStr.append(" AND STRCMP(usuarios.passUsuario,PASSWORD('").append(password).append("')) = 0");
 					out.println("<p>"+sqlStr.toString()+"</p>");
-					ResultSet rset = stmt.executeQuery(sqlStr.toString());
+					//String sqlLogin = "SELECT * FROM usuarios WHERE usuarios.nombreUsuario = " + usuario + " AND usuarios.passUsuario = " + password;
+					String sqlLogin = "SELECT * FROM usuarios WHERE nombreUsuario = '" + usuario + "' AND passUsuario = '" + password + "'";
+					ResultSet rset = stmt.executeQuery(sqlLogin);
 	
 					if(!rset.next()) {
-						// Si el resultset no está vacío
+						// Si el resultset está vacío
 						out.println("<h3>Nombre de usuario o contraseña incorrectos</h3>");
-						out.println("<p><a href='index.html'>Volver a Login</a></p>");
+						out.println("<p><a href='index.jsp'>Volver a Login</a></p>");
 					} else {
 						// Si los datos introducidos son correctos
 						// Crear una sesión nueva y guardar el usuario como variable de sesión
@@ -87,13 +98,19 @@ public class LoginServlet extends HttpServlet {
 						}
 	
 						session = request.getSession(true);
-						synchronized(session)
+							synchronized(session)
 	
 						{
 							session.setAttribute("usuario", usuario);
 						}
 	
 						out.println("<p>Hola, " + usuario + "!</p>");
+						out.println("<p>Menú de opciones</p>");
+						out.println("<ul>");
+						out.println("<li><a href='#'>Libros</a></li>");
+						out.println("<li><a href='#'>Autores</a></li>");
+						out.println("<li><a href='#'>Editoriales</a></li>");
+						out.println("<li><a href='#'>Pedidos</a></li>");
 						out.println("<p><a href='hazalgo'>Haz algo</a></p>");
 					}
 			
@@ -103,7 +120,8 @@ public class LoginServlet extends HttpServlet {
 					out.println("</html>");
 					
 			} catch(SQLException ex) {
-				out.println("<p>Servicio no disponible</p>");
+				out.println("<p>Servicio no disponible...</p>");
+				out.println("<p><a href='index.jsp'>Volver a Login</a></p>");
 				out.println("</body>");
 				out.println("</html>");
 			} finally {
