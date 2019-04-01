@@ -94,6 +94,10 @@
 	        </form>
 	        <%}%>
 	        
+	        <div class="piepagina">
+        		<p>Librería MVC S.L., CIF.:B91458752 | Avda. La Revuelta, nº 25 | Pol. Ind. Los Perdidos | 41500, Alcalá de Guadaira (Sevilla)</p>
+   			</div>
+   		
 	        <!-- Optional JavaScript -->
 	    	<!-- jQuery first, then Popper.js, then Bootstrap JS ==============================================-->
 	    	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
