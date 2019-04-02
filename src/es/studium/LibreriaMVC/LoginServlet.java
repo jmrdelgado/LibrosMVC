@@ -54,7 +54,7 @@ public class LoginServlet extends HttpServlet {
 		try {
 			out.println("<html>");
 				out.println("<head>");
-					out.println("<title>Login</title>");
+					out.println("<title>Logeo de usuarios.</title>");
 				out.println("</head>");
 				out.println("<body>");
 					out.println("<h2>Login</h2>");
@@ -121,7 +121,7 @@ public class LoginServlet extends HttpServlet {
 					
 			} catch(SQLException ex) {
 				out.println("<p>Servicio no disponible...</p>");
-				out.println("<p><a href='index.jsp'>Volver a Login</a></p>");
+				out.println("<p><a href='controlusers.jsp'>Volver a Login</a></p>");
 				out.println("</body>");
 				out.println("</html>");
 			} finally {

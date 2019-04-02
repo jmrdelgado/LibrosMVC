@@ -12,6 +12,16 @@ body {
   background-color: #f5f5f5;
 }
 
+.piepagina {
+    text-align: center;
+    font-size: 11px;
+    background-color: #606060;
+    padding: 15px 0px 1px 0px;
+    border-radius: 5px;
+    margin-top: 25px;
+    color: #FFF;
+}
+
 .titulo-subrayado {
     margin-bottom: 1.5rem;
 }
