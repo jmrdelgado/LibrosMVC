@@ -20,21 +20,23 @@
         <title>Libros MVC</title>
 	</head>
 	<body>
-		<h2>Autenticación de Usuarios</h2>
-		<form method="get" action="login">
-			<table>
-				<tr>
-					<td>Introduce tu nombre de usuario:</td>
-					<td><input type="text" name="usuario"/></td>
-				</tr>
-				<tr>
-					<td>Introduce tu clave:</td>
-					<td><input type="password" name="password"/></td>
-				</tr>
-			</table>
-			<br/>
-			<input type="submit" name="Acceder"/>
-			<input type="reset" name="Cancelar"/>
-		</form>
+		<div class="fondo-form"> 
+			<form class="form-signin" method="get" action="login">
+				<div class="text-center mb-4 logotipo">
+				<img src="images/img_login.png" alt="Imagen Libro MVC" class="logo-login">
+					<h1 class="h4 font-weight-normal titulo-tienda">Acceso de Usuarios</h1>
+					<div class="form-field-login">
+						<input type="text" name="usuario" class="form-control form-control-sm" type="text" placeholder="Nombre de Usuario"/>
+						<input type="password" name="password" class="form-control form-control-sm" type="text" placeholder="Clave de Acceso"/>
+					
+						<div>
+							<hr>
+							<input class="btn btn-sm btn-primary btn-block" type="submit" name="Acceder"/>
+							<input class="btn btn-sm btn-primary btn-block" type="reset" name="Cancelar"/>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
 	</body>
 </html>

@@ -86,7 +86,7 @@ public class LoginServlet extends HttpServlet {
 					if(!rset.next()) {
 						// Si el resultset está vacío
 						out.println("<h3>Nombre de usuario o contraseña incorrectos</h3>");
-						out.println("<p><a href='index.jsp'>Volver a Login</a></p>");
+						out.println("<p><a href='controlusers.jsp'>Volver a Login</a></p>");
 					} else {
 						// Si los datos introducidos son correctos
 						// Crear una sesión nueva y guardar el usuario como variable de sesión
