@@ -31,7 +31,7 @@
 					
 						<div>
 							<hr>
-							<input class="btn btn-sm btn-primary btn-block" type="submit" name="Acceder" value="VAlidar Datos de Usuario"/>
+							<input class="btn btn-sm btn-primary btn-block" type="submit" name="Acceder" value="Validar Datos de Usuario"/>
 							<input class="btn btn-sm btn-primary btn-block" type="reset" name="Cancelar" value="Reiniciar Formulario"/>
 						</div>
 					</div>
