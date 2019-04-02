@@ -24,15 +24,15 @@
 			<form class="form-signin" method="get" action="login">
 				<div class="text-center mb-4 logotipo">
 				<img src="images/img_login.png" alt="Imagen Libro MVC" class="logo-login">
-					<h1 class="h4 font-weight-normal titulo-tienda">Acceso de Usuarios</h1>
+					<h1 class="h5 font-weight-normal titulo-tienda">Acceso Usuarios Registrados</h1>
 					<div class="form-field-login">
 						<input type="text" name="usuario" class="form-control form-control-sm" type="text" placeholder="Nombre de Usuario"/>
 						<input type="password" name="password" class="form-control form-control-sm" type="text" placeholder="Clave de Acceso"/>
 					
 						<div>
 							<hr>
-							<input class="btn btn-sm btn-primary btn-block" type="submit" name="Acceder"/>
-							<input class="btn btn-sm btn-primary btn-block" type="reset" name="Cancelar"/>
+							<input class="btn btn-sm btn-primary btn-block" type="submit" name="Acceder" value="VAlidar Datos de Usuario"/>
+							<input class="btn btn-sm btn-primary btn-block" type="reset" name="Cancelar" value="Reiniciar Formulario"/>
 						</div>
 					</div>
 				</div>
