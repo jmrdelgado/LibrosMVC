@@ -55,11 +55,14 @@ public class LoginServlet extends HttpServlet {
 			out.println("<html>");
 				out.println("<head>");
 					out.println("<title>Libros MVC</title>");
+					out.println("<link rel='stylesheet' type='text/css' href='lib/css/bootstrap.min.css'>");
+			    	out.println("<link rel='stylesheet' type='text/css' href='lib/css/libreriamvc.css'>");
 				out.println("</head>");
-				out.println("<body>");
-					out.println("<div class=\"fondo-form\">");
-					out.println("<div class=\"text-center mb-4 logotipo\">");
-					out.println("<h1 class=\"h5 font-weight-normal titulo-tienda\">Datos Insuficientes</h1>");
+				out.println("<body style='background-color:#F5F5F5;'>");
+					out.println("<div class='fondo-form'>");
+					out.println("<div class='text-center mb-4 logotipo' style='padding:20px;'>");
+					out.println("<img src='images/ico_error.png' style='width:100px !important;'>");
+					out.println("<h1 class='h4 font-weight-normal titulo-tienda'>Datos Insuficientes</h1>");
 	
 				// Obtener una conexión del pool
 				conn = pool.getConnection();
@@ -71,8 +74,8 @@ public class LoginServlet extends HttpServlet {
 				
 				// Validar los parámetros de la petición request
 				if(usuario.length() == 0) {
-					out.println("<h3>Introduzca Nombre de Usuario...</h3>");
-					out.println("<a href='controlusers.jsp' class='btn btn-sm btn-primary btn-block'>Volver a Intentar...<a/>");
+					out.println("<h5>Introduzca Nombre de Usuario...</h5>");
+					out.println("<a href='controlusers.jsp' class='btn btn-sm btn-primary btn-block' style='margin-top:15px;'>Volver a Intentar...<a/>");
 				} else if (password.length()==0) {
 					out.println("<h3>Introduzca Contraseña de Acceso...</h3>");
 				} else {
