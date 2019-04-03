@@ -18,13 +18,17 @@
     	<!-- Bootstrap CSS ================================================================================-->
     	<link rel="stylesheet" type="text/css" href="lib/css/bootstrap.min.css">
     	<link rel="stylesheet" type="text/css" href="lib/css/libreriamvc.css">
-        <title>Pedido</title>
+        <title>Tienda Libros MVC</title>
     </head>
     <body>
     	<div class="fondo-carrito">
     		<div class="text-center mb-4 logotipo">
 	        	<img src="images/cab_librosmvc.svg" alt="icono-login">
     		</div>
+    		<div class="acceso_panel">
+        		<a href="controlusers.jsp" alt="Acceso Usuarios"><img src="images/ico_acceso.png" alt="Acceso Usuarios"> Acceso Usuarios</a>
+        	</div>
+    		<br>
 	        <h3 class="h3 titulo-subrayado">LIBROS <strong>RECOMENDADOS</strong></h3>
 
 	        <p><strong>Elegir un libro y la cantidad:</strong></p>

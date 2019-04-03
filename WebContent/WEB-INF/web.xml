@@ -4,7 +4,7 @@ xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.
 http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
     <display-name>LibreriaMVC</display-name>
     <welcome-file-list>
-        <welcome-file>controlusers.jsp</welcome-file>
+        <welcome-file>shopping</welcome-file>
     </welcome-file-list>
     <servlet>
         <servlet-name>Controlador</servlet-name>
