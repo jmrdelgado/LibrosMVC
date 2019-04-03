@@ -54,10 +54,12 @@ public class LoginServlet extends HttpServlet {
 		try {
 			out.println("<html>");
 				out.println("<head>");
-					out.println("<title>Logeo de usuarios.</title>");
+					out.println("<title>Libros MVC</title>");
 				out.println("</head>");
 				out.println("<body>");
-					out.println("<h2>Login</h2>");
+					out.println("<div class=\"fondo-form\">");
+					out.println("<div class=\"text-center mb-4 logotipo\">");
+					out.println("<h1 class=\"h5 font-weight-normal titulo-tienda\">Datos Insuficientes</h1>");
 	
 				// Obtener una conexión del pool
 				conn = pool.getConnection();
@@ -69,9 +71,10 @@ public class LoginServlet extends HttpServlet {
 				
 				// Validar los parámetros de la petición request
 				if(usuario.length() == 0) {
-					out.println("<h3>Debes introducir tu usuario...</h3>");
+					out.println("<h3>Introduzca Nombre de Usuario...</h3>");
+					out.println("<a href='controlusers.jsp' class='btn btn-sm btn-primary btn-block'>Volver a Intentar...<a/>");
 				} else if (password.length()==0) {
-					out.println("<h3>Debes introducir tu contraseña...</h3>");
+					out.println("<h3>Introduzca Contraseña de Acceso...</h3>");
 				} else {
 					// Verificar que existe el usuario y su correspondiente	clave
 					StringBuilder sqlStr = new StringBuilder();
@@ -86,7 +89,7 @@ public class LoginServlet extends HttpServlet {
 					if(!rset.next()) {
 						// Si el resultset está vacío
 						out.println("<h3>Nombre de usuario o contraseña incorrectos</h3>");
-						out.println("<p><a href='index.jsp'>Volver a Login</a></p>");
+						out.println("<p><a href='controlusers.jsp'>Volver a Login</a></p>");
 					} else {
 						// Si los datos introducidos son correctos
 						// Crear una sesión nueva y guardar el usuario como variable de sesión
@@ -115,13 +118,16 @@ public class LoginServlet extends HttpServlet {
 					}
 			
 				}
-			
+					out.println("</div>");
+					out.println("</div>");
 					out.println("</body>");
 					out.println("</html>");
 					
 			} catch(SQLException ex) {
 				out.println("<p>Servicio no disponible...</p>");
 				out.println("<p><a href='controlusers.jsp'>Volver a Login</a></p>");
+				out.println("</div>");
+				out.println("</div>");
 				out.println("</body>");
 				out.println("</html>");
 			} finally {
