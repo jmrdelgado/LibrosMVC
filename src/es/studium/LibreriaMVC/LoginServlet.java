@@ -77,22 +77,17 @@ public class LoginServlet extends HttpServlet {
 					out.println("<h5>Introduzca Nombre de Usuario...</h5>");
 					out.println("<a href='controlusers.jsp' class='btn btn-sm btn-primary btn-block' style='margin-top:15px;'>Volver a Intentar...<a/>");
 				} else if (password.length()==0) {
-					out.println("<h3>Introduzca Contraseña de Acceso...</h3>");
+					out.println("<h5>Introduzca Contraseña de Acceso...</h5>");
+					out.println("<a href='controlusers.jsp' class='btn btn-sm btn-primary btn-block' style='margin-top:15px;'>Volver a Intentar...<a/>");
 				} else {
 					// Verificar que existe el usuario y su correspondiente	clave
-					StringBuilder sqlStr = new StringBuilder();
-					sqlStr.append("SELECT * FROM usuarios WHERE ");
-					sqlStr.append("STRCMP(usuarios.nombreUsuario,'").append(usuario).append("') = 0");
-					sqlStr.append(" AND STRCMP(usuarios.passUsuario,PASSWORD('").append(password).append("')) = 0");
-					out.println("<p>"+sqlStr.toString()+"</p>");
-					//String sqlLogin = "SELECT * FROM usuarios WHERE usuarios.nombreUsuario = " + usuario + " AND usuarios.passUsuario = " + password;
 					String sqlLogin = "SELECT * FROM usuarios WHERE nombreUsuario = '" + usuario + "' AND passUsuario = '" + password + "'";
 					ResultSet rset = stmt.executeQuery(sqlLogin);
 	
 					if(!rset.next()) {
 						// Si el resultset está vacío
-						out.println("<h3>Nombre de usuario o contraseña incorrectos</h3>");
-						out.println("<p><a href='controlusers.jsp'>Volver a Login</a></p>");
+						out.println("<h5>Nombre de usuario o contraseña incorrectos</h5>");
+						out.println("<a href='controlusers.jsp' class='btn btn-sm btn-primary btn-block' style='margin-top:15px;'>Volver a Intentar...<a/>");
 					} else {
 						// Si los datos introducidos son correctos
 						// Crear una sesión nueva y guardar el usuario como variable de sesión
