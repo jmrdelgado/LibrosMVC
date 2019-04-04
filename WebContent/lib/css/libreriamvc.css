@@ -1,0 +1,248 @@
+:root {
+  --input-padding-x: .75rem;
+  --input-padding-y: .3rem;
+}
+
+body {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 15px;
+  background-color: #f5f5f5;
+}
+
+.acceso_panel {
+    background-color: #606060;
+	text-align: right;
+	padding-right: 25px;
+	font-size: 12px;
+	margin-top: 5px;
+	border-radius: 5px;
+}
+
+.acceso_panel img {
+    width: 18px !important;
+    padding: 5px 0px 5px 0px;
+}
+
+.piepagina {
+    text-align: center;
+    font-size: 11px;
+    background-color: #606060;
+    padding: 15px 0px 1px 0px;
+    border-radius: 5px;
+    margin-top: 25px;
+    color: #FFF;
+}
+
+.titulo-subrayado {
+    margin-bottom: 1.5rem;
+}
+
+.titulo-subrayado::after {
+    content: "";
+    display: block;
+    width: 4rem;
+    height: 2px;
+    background: #ff6000;
+    margin: .74rem 0 0;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    font-family: Montserrat,sans-serif;
+}
+
+.h3, h3 {
+    font-size: 1.714rem;
+}
+
+a {
+	color: #FFFFFF;
+}
+
+a:hover {
+	color: orange;
+	text-decoration: none;
+}
+
+.nav-item {
+	border-radius: 6px;
+	margin: 5px;
+	background-color: #1f65b1;
+	padding-right: 5px;
+	padding-left: 5px;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255,255,255);
+}
+
+.form-peques {
+    margin-top: 10px;
+}
+
+.titulo-tienda {
+	color: #e95318;
+	padding: 20px 0px 0px 0px;
+}
+
+.titInforme {
+    text-align: center;
+    padding: 15px;
+    margin-top: 15px;
+    background-color: #54a73b;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    color: #FFF;
+    font-size: 20px;
+}
+
+.logotipo {
+	background-color: #F8F5F0;
+	border-radius: 5px;
+}
+
+.logotipo img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.fondo-form, .fondo-carrito {
+    background-color: #e7e7e7;
+    border-radius: 10px;
+}
+
+.fondo-carrito {
+	max-width: 900px !important;
+}
+
+.form-signin, .fondo-form, .fondo-carrito {
+  width: 100%;
+  max-width: 420px;
+  padding: 15px;
+  margin: auto;
+}
+
+.form-signin, .fondo-form {
+	
+}
+
+.form-label-group {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.form-label-group > input,
+.form-label-group > label {
+  padding: var(--input-padding-y) var(--input-padding-x);
+}
+
+/* Formulario Login */
+.text-center.mb-4.logotipo {
+	margin-bottom: 0px !important;
+}
+
+.form-control.form-control-sm {
+    margin-bottom: 5px;
+}
+
+.form-field-login {
+	padding: 15px;
+}
+
+.logo-login {
+	width: 280px !important;
+}
+
+.botones_login {
+	
+}
+
+#und-productos {
+    padding-top: 4px;
+}
+
+.total-productos{
+	text-align: right;
+	padding-bottom: 15px;
+}
+
+.btn-cerrarapp{
+	float: left;
+	width: 100%;	
+}
+
+.form-label-group > label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  margin-bottom: 0; /* Override default `<label>` margin */
+  line-height: 1.5;
+  color: #919aa4;
+  cursor: text; /* Match the input under the label */
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  transition: all .1s ease-in-out;
+}
+
+.form-label-group input::-webkit-input-placeholder {
+  color: transparent;
+}
+
+.form-label-group input:-ms-input-placeholder {
+  color: transparent;
+}
+
+.form-label-group input::-ms-input-placeholder {
+  color: transparent;
+}
+
+.form-label-group input::-moz-placeholder {
+  color: transparent;
+}
+
+.form-label-group input::placeholder {
+  color: transparent;
+}
+
+.form-label-group input:not(:placeholder-shown) {
+  /*padding-top: calc(var(--input-padding-y) + var(--input-padding-y) * (2 / 3));
+  /padding-bottom: calc(var(--input-padding-y) / 3);*/
+}
+
+.form-label-group input:not(:placeholder-shown) ~ label {
+  /*padding-top: calc(var(--input-padding-y) / 3);
+  padding-bottom: calc(var(--input-padding-y) / 3);*/
+  font-size: 12px;
+  color: #777;
+  display: none;
+}
+
+.form-inline .form-control {
+    margin: 10px;
+}
+
+/* Fallback for Edge
+-------------------------------------------------- */
+@supports (-ms-ime-align: auto) {
+  .form-label-group > label {
+    display: none;
+  }
+  .form-label-group input::-ms-input-placeholder {
+    color: #777;
+  }
+}
+
+/* Fallback for IE
+-------------------------------------------------- */
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .form-label-group > label {
+    display: none;
+  }
+  .form-label-group input:-ms-input-placeholder {
+    color: #777;
+  }
+}

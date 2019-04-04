@@ -4,6 +4,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import javax.sql.DataSource;
+
 /**
 *
 * @author Jorge
@@ -19,7 +21,7 @@ public class LibrosMVC {
     private static String[] titulos = new String[MAX_SIZE];
     private static String[] autores = new String[MAX_SIZE];
     private static String[] precios = new String[MAX_SIZE];
-
+    
     public static void cargarDatos() {
 
         // Creamos objetos para la conexión

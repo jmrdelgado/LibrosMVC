@@ -15,15 +15,19 @@
     
     	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
-    <!-- Bootstrap CSS ================================================================================-->
+    	<!-- Bootstrap CSS ================================================================================-->
     	<link rel="stylesheet" type="text/css" href="lib/css/bootstrap.min.css">
     	<link rel="stylesheet" type="text/css" href="lib/css/libreriamvc.css">
-        <title>Pedido</title>
+        <title>Tienda Libros MVC</title>
     </head>
     <body>
     	<div class="fondo-carrito">
     		<%@include file = "header.jsp"%>
-
+    		
+    		<div class="acceso_panel">
+        		<a href="controlusers.jsp" alt="Acceso Usuarios"><img src="images/ico_acceso.png" alt="Acceso Usuarios"> Acceso Usuarios</a>
+        	</div>
+    		<br>
 	        <h3 class="h3 titulo-subrayado">LIBROS <strong>RECOMENDADOS</strong></h3>
 
 	        <p><strong>Elegir un libro y la cantidad:</strong></p>
@@ -92,7 +96,7 @@
 	            <input class="btn btn-success" type="submit" value="Confirmar compra">
 	        </form>
 	        <%}%>
-	        
+
 	        <%@include file = "footer.jsp"%>
    		
 	        <!-- Optional JavaScript -->

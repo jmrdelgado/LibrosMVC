@@ -10,10 +10,14 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1"
         <servlet-name>Controlador</servlet-name>
         <servlet-class>es.studium.LibreriaMVC.ServletControlador</servlet-class>
     </servlet>
-    <servlet-mapping>
-        <servlet-name>Controlador</servlet-name>
-        <url-pattern>/shopping</url-pattern>
-    </servlet-mapping>
+    <servlet>
+		<servlet-name>LoginServlet</servlet-name>
+		<servlet-class>es.studium.LibreriaMVC.LoginServlet</servlet-class>
+	</servlet>
+    <servlet>
+		<servlet-name>LogoutServlet</servlet-name>
+		<servlet-class>es.studium.LibreriaMVC.LogoutServlet</servlet-class>
+	</servlet>
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>
