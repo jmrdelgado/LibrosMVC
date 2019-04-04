@@ -11,5 +11,8 @@
 		<div class="text-center mb-4 logotipo">
         	<img src="images/cab_librosmvc.svg" alt="icono-login">
    		</div>
+   		<div class="acceso_panel">
+       		<a href="controlusers.jsp" alt="Acceso Usuarios"><img src="images/ico_acceso.png" alt="Acceso Usuarios"> Acceso Usuarios</a>
+       	</div>
 	</body>
 </html>

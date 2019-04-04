@@ -23,10 +23,7 @@
     <body>
     	<div class="fondo-carrito">
     		<%@include file = "header.jsp"%>
-    		
-    		<div class="acceso_panel">
-        		<a href="controlusers.jsp" alt="Acceso Usuarios"><img src="images/ico_acceso.png" alt="Acceso Usuarios"> Acceso Usuarios</a>
-        	</div>
+
     		<br>
 	        <h3 class="h3 titulo-subrayado">LIBROS <strong>RECOMENDADOS</strong></h3>
 
