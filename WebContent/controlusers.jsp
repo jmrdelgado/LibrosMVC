@@ -32,7 +32,8 @@
 						<div>
 							<hr>
 							<input class="btn btn-sm btn-primary btn-block" type="submit" name="Acceder" value="Validar Datos de Usuario"/>
-							<input class="btn btn-sm btn-primary btn-block" type="reset" name="Cancelar" value="Reiniciar Formulario"/>
+							<input class="btn btn-sm btn-primary btn-block" type="reset" name="Reiniciar" value="Reiniciar Formulario"/>
+							<a href="order.jsp" class="btn btn-sm btn-primary btn-block" type="submit" name="Inicio">Volver a la Tienda</a>
 						</div>
 					</div>
 				</div>
