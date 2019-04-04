@@ -1,11 +1,19 @@
 package es.studium.LibreriaMVC;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Formatter;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -15,6 +23,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.sql.DataSource;
 
 /**
 * Servlet implementation class ServletControlador
@@ -27,7 +36,10 @@ import javax.servlet.http.HttpSession;
 public class ServletControlador extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-
+ 	
+    //Pool de conexiones a la base de datos
+ 	private DataSource pool;
+    
     /**
     * @see HttpServlet#HttpServlet()
     */
@@ -36,8 +48,8 @@ public class ServletControlador extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-    public void init(ServletConfig conf) throws ServletException {
-        super.init(conf);
+    public void init(ServletConfig conf) throws ServletException {   	
+    	super.init(conf);
         LibrosMVC.cargarDatos();
     }
 
@@ -52,7 +64,12 @@ public class ServletControlador extends HttpServlet {
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Recupera la sesión actual o crea una nueva si no existe
+        
+    	//Instanciamos objetos para obtener conexión a DBase
+    	Connection conn = null;
+		Statement stmt = null;
+    	
+    	// Recupera la sesión actual o crea una nueva si no existe
         HttpSession session = request.getSession(true);
         // Recupera el carrito de la sesión actual
         List<ElementoPedido> elCarrito = (ArrayList<ElementoPedido>)
@@ -132,13 +149,42 @@ public class ServletControlador extends HttpServlet {
             request.setAttribute("precioTotal", sb.toString());
             request.setAttribute("cantidadTotal", cantidadTotalOrdenada+"");
 
-            //Redirige a checkout.jsp
-            nextPage = "/checkout.jsp";
+            /**
+             * Obtenermos conexión del pool
+             */
+			try {
+				conn = pool.getConnection();
+				stmt = conn.createStatement();
+				
+				Date hoy = new Date();
+				SimpleDateFormat formatohoy = new SimpleDateFormat("dd-MM-yyyy");
+				String fechapedido = formatohoy.format(hoy);
+				
+				String sqlpedido = "INSERT INTO pedidos ('fechaPedido','idUsuarioFK') VALUES ('" + fechapedido + "','1')";
+				ResultSet rsinsert = stmt.executeQuery(sqlpedido);
+				
+				//Redirige a checkout.jsp
+	            nextPage = "/checkout.jsp";
+	            
+	            /**
+	             * Cerramos objetos
+	             */
+	            if(stmt != null) {
+					stmt.close();
+				}
+		
+				if(conn != null) {
+					// Esto devolvería la conexión al pool
+					conn.close();
+				}
+				
+			} catch(SQLException ex) {}
 
         }
         ServletContext servletContext = getServletContext();
         RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher(nextPage);
         requestDispatcher.forward(request, response);
     }
+    
 }
 

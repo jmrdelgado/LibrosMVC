@@ -4,8 +4,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import javax.sql.DataSource;
-
 /**
 *
 * @author Jorge
