@@ -2,6 +2,8 @@ package es.studium.LibreriaMVC;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
@@ -23,6 +25,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
+
+import org.eclipse.jdt.internal.compiler.IDebugRequestor;
 
 /**
 * Servlet implementation class ServletControlador
@@ -84,7 +88,7 @@ public class ServletControlador extends HttpServlet {
         
     	//Instanciamos objetos para obtener conexión a DBase
     	Connection conn = null;
-		Statement stmt = null;
+		PreparedStatement stmt = null;
     	
     	// Recupera la sesión actual o crea una nueva si no existe
         HttpSession session = request.getSession(true);
@@ -174,18 +178,44 @@ public class ServletControlador extends HttpServlet {
             String sqlpedido = "INSERT INTO pedidos (fechaPedido,idUsuarioFK) VALUES ('"+ fechapedido +"', '1')";
             
 			try {
-				//Solicitamos conexión al Pool
+				//Solicito conexión al Pool
 				conn = pool.getConnection();
 				
-				//Instanciamos objeto para consulta preparadas
-				stmt = conn.createStatement();
+				//Instancio objeto para consulta preparada
+				stmt = conn.prepareStatement(sqlpedido,Statement.RETURN_GENERATED_KEYS);
 
-				//Comprobamos si el alta ha sido correcto
-				int count = stmt.executeUpdate(sqlpedido);
+				//Compruebo si el alta ha sido correcto y Obtenemos ID del pedido creado
+				int count = stmt.executeUpdate();
 				if (count > 0) {
-					System.out.println("Pedido Registrado Correctamente");
 					
-		            // Coloca el precioTotal y la cantidadtotal en el request
+					ResultSet recuperaIDs = stmt.getGeneratedKeys();
+					int idgenerado = 0;
+					if (recuperaIDs.next()) {
+						idgenerado = recuperaIDs.getInt(1);
+					}
+					
+					//Procedo al alta de los artículos del pedido
+					String sqldetallepedido = "INSERT INTO lineapedidos (idLibroFK, idPedidoFK, cantidadPedido) VALUES (?,?,?)";
+					int totalarticulos = 0;
+
+					Iterator<ElementoPedido> iter = elCarrito.iterator();
+					
+					while(iter.hasNext()){
+						ElementoPedido altaPedido = (ElementoPedido)iter.next();
+					    System.out.println("ID Libro: " + altaPedido.getIdLibro());
+					    System.out.println("Cantidad: " + altaPedido.getCantidad());
+					    
+					    stmt = conn.prepareStatement(sqldetallepedido);
+						//stmt.setInt(1, idLibroFK);
+						stmt.setInt(2, idgenerado);
+						//stmt.setInt(3, cantidadPedido);
+						//stmt.executeUpdate();
+						totalarticulos++;
+					}
+
+					System.out.println("Pedido Registrado Correctamente con ID: " + idgenerado + " y un total de: " + totalarticulos + " artículos.");
+					
+		            // Coloca el precioTotal y la cantidadTotal en el request
 		            request.setAttribute("precioTotal", sb.toString());
 		            request.setAttribute("cantidadTotal", cantidadTotalOrdenada + "");
 		            nextPage = "/checkout.jsp";
