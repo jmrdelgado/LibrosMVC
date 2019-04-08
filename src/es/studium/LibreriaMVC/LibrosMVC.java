@@ -20,6 +20,7 @@ import javax.sql.DataSource;
 public class LibrosMVC {
 
     private static final int MAX_SIZE = 5;
+    private static int[] ids = new int[MAX_SIZE];
     private static String[] titulos = new String[MAX_SIZE];
     private static String[] autores = new String[MAX_SIZE];
     private static String[] precios = new String[MAX_SIZE];
@@ -64,6 +65,7 @@ public class LibrosMVC {
             int cont = 0;
 
             while(rs.next()) {
+            	ids[cont] = rs.getInt("idlibro");
                 titulos[cont] = rs.getString("tituloLibro");
                 autores[cont] = rs.getString("autorLibro");
                 precios[cont] = rs.getString("precioLibro");
@@ -98,6 +100,13 @@ public class LibrosMVC {
     public static int tamano() {
         return titulos.length;
     }
+    
+    /**
+     * Devuelve el id del libro identificado con idLibro
+     */
+     public static int getIdlibro(int idLibro) {
+         return ids[idLibro];
+     }
 
     /**
     * Devuelve el título del libro identificado con idLibro

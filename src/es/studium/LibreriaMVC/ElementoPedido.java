@@ -38,6 +38,10 @@ public class ElementoPedido {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
+    
+    public int getIdlibro() {
+        return LibrosMVC.getIdlibro(idLibro);
+    }
 
     public String getAutor() {
         return LibrosMVC.getAutor(idLibro);
