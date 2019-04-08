@@ -2,9 +2,7 @@ package es.studium.LibreriaMVC;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,6 +22,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
+
+import java.sql.PreparedStatement;
 
 /**
 * Servlet implementation class ServletControlador
@@ -51,6 +51,20 @@ public class ServletControlador extends HttpServlet {
     public void init(ServletConfig conf) throws ServletException {   	
     	super.init(conf);
         LibrosMVC.cargarDatos();
+        
+        try	{
+			
+			// Crea un contecto para poder luego buscar el recurso DataSource
+			InitialContext ctx = new InitialContext();
+			
+			// Busca el recurso DataSource en el contexto
+			pool = (DataSource)ctx.lookup("java:comp/env/jdbc/mysql_tiendalibros");
+				
+			if(pool == null) {
+				throw new ServletException("DataSource desconocida 'mysql_tiendalibros'");
+			}
+				
+		} catch(NamingException ex){}
     }
 
     /**
@@ -67,7 +81,7 @@ public class ServletControlador extends HttpServlet {
         
     	//Instanciamos objetos para obtener conexión a DBase
     	Connection conn = null;
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
     	
     	// Recupera la sesión actual o crea una nueva si no existe
         HttpSession session = request.getSession(true);
@@ -152,25 +166,27 @@ public class ServletControlador extends HttpServlet {
             /**
              * Obtenermos conexión del pool
              */
+            Date hoy = new Date();
+			SimpleDateFormat formatohoy = new SimpleDateFormat("dd-MM-yyyy");
+			String fechapedido = formatohoy.format(hoy);
+			
+			String sqlpedido = "INSERT INTO pedidos (fechaPedido,idUsuarioFK) VALUES (?,?)";
+			
 			try {
 				conn = pool.getConnection();
-				stmt = conn.createStatement();
+				pstmt = conn.prepareStatement(sqlpedido);
 				
-				Date hoy = new Date();
-				SimpleDateFormat formatohoy = new SimpleDateFormat("dd-MM-yyyy");
-				String fechapedido = formatohoy.format(hoy);
-				
-				String sqlpedido = "INSERT INTO pedidos ('fechaPedido','idUsuarioFK') VALUES ('" + fechapedido + "','1')";
-				ResultSet rsinsert = stmt.executeQuery(sqlpedido);
-				
+				pstmt.setString(1,fechapedido);
+				pstmt.setInt(2,1);
+				pstmt.execute();
 				//Redirige a checkout.jsp
-	            nextPage = "/checkout.jsp";
+	            nextPage = "checkout.jsp";
 	            
 	            /**
 	             * Cerramos objetos
 	             */
-	            if(stmt != null) {
-					stmt.close();
+	            if(pstmt != null) {
+	            	pstmt.close();
 				}
 		
 				if(conn != null) {
