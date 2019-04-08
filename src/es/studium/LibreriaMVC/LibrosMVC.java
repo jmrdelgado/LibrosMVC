@@ -1,8 +1,12 @@
 package es.studium.LibreriaMVC;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.servlet.ServletException;
+import javax.sql.DataSource;
 
 /**
 *
@@ -20,28 +24,39 @@ public class LibrosMVC {
     private static String[] autores = new String[MAX_SIZE];
     private static String[] precios = new String[MAX_SIZE];
     
-    public static void cargarDatos() {
+    public static void cargarDatos() throws ServletException {
+    	
+    	// Pool de conexiones a la base de datos
+     	DataSource pool = null;
+    		
+    		try	{
+    				
+    			// Crea un contexto para poder luego buscar el recurso DataSource
+    			InitialContext ctx = new InitialContext();
+    			
+    			// Busca el recurso DataSource en el contexto
+    			pool = (DataSource)ctx.lookup("java:comp/env/jdbc/mysql_tiendalibros");
+    				
+    			if(pool == null) {
+    				throw new ServletException("DataSource desconocida 'mysql_tiendalibros'");
+    			}
+    				
+    		} catch(NamingException ex){
+    			ex.printStackTrace();
+    		}
+    				
 
         // Creamos objetos para la conexión
         Connection conn = null;
         Statement stmt = null;
 
         try {
-            // Paso 1: Cargamos el driver
-            Class.forName("com.mysql.jdbc.Driver");
+        	
+        	// Obtener una conexión del pool
+			conn = pool.getConnection();
+			stmt = conn.createStatement();
 
-            // Paso 2: Conectarse a la base de datos utilizando un objeto de la clase Connection
-            String userName = "servletUser";
-            String password = "Studium2017;";
-
-            // URL de la base de datos
-            String url = "jdbc:mysql://localhost:3306/tiendalibros?useSSL=false";
-            conn = DriverManager.getConnection(url, userName, password);
-
-            // Paso 3: Crear las sentencias SQL utilizando objetos de la clase Statement
-            stmt = conn.createStatement();
-
-            // Paso 4: Ejecutar las sentencias
+            // Ejecutamos sentencia sql
             String sqlStr = "SELECT `libros`.`*`,`autores`.`autorLibro` FROM `libros` INNER JOIN `autores` ON `libros`.`idAutorFK` = `autores`.`idAutor`";
             ResultSet rs = stmt.executeQuery(sqlStr);
 

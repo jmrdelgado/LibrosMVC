@@ -2,6 +2,8 @@ package es.studium.LibreriaMVC;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,7 +25,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
-import java.sql.PreparedStatement;
+import org.eclipse.jdt.internal.compiler.IDebugRequestor;
+
+import com.mysql.jdbc.Statement;
 
 /**
 * Servlet implementation class ServletControlador
@@ -50,6 +54,24 @@ public class ServletControlador extends HttpServlet {
 
     public void init(ServletConfig conf) throws ServletException {   	
     	super.init(conf);
+    	
+    	try	{
+			
+			// Crea un contecto para poder luego buscar el recurso DataSource
+			InitialContext ctx = new InitialContext();
+			
+			// Busca el recurso DataSource en el contexto
+			pool = (DataSource)ctx.lookup("java:comp/env/jdbc/mysql_tiendalibros");
+				
+			if(pool == null) {
+				throw new ServletException("DataSource desconocida 'mysql_tiendalibros'");
+			}
+				
+		} catch(NamingException ex){
+			ex.printStackTrace();
+			System.out.println("Error al conectar con origen de datos: " + ex.getMessage());
+		}
+    	
         LibrosMVC.cargarDatos();
         
         try	{
@@ -81,7 +103,7 @@ public class ServletControlador extends HttpServlet {
         
     	//Instanciamos objetos para obtener conexión a DBase
     	Connection conn = null;
-		PreparedStatement pstmt = null;
+		PreparedStatement stmt = null;
     	
     	// Recupera la sesión actual o crea una nueva si no existe
         HttpSession session = request.getSession(true);
@@ -159,34 +181,66 @@ public class ServletControlador extends HttpServlet {
             formatter.format("%.2f", precioTotal);
             formatter.close();
 
-            // Coloca el precioTotal y la cantidadtotal en el request
-            request.setAttribute("precioTotal", sb.toString());
-            request.setAttribute("cantidadTotal", cantidadTotalOrdenada+"");
-
             /**
-             * Obtenermos conexión del pool
+             * Iniciamos Alta de Pedido
              */
+            //Obtenmos Fecha Actual y damos formato
             Date hoy = new Date();
-			SimpleDateFormat formatohoy = new SimpleDateFormat("dd-MM-yyyy");
+			SimpleDateFormat formatohoy = new SimpleDateFormat("yyyy-MM-dd");
 			String fechapedido = formatohoy.format(hoy);
 			
-			String sqlpedido = "INSERT INTO pedidos (fechaPedido,idUsuarioFK) VALUES (?,?)";
-			
+			//Construimos consulta
+            String sqlpedido = "INSERT INTO pedidos (fechaPedido,idUsuarioFK) VALUES ('"+ fechapedido +"', '1')";
+            
 			try {
+				//Solicito conexión al Pool
 				conn = pool.getConnection();
-				pstmt = conn.prepareStatement(sqlpedido);
 				
-				pstmt.setString(1,fechapedido);
-				pstmt.setInt(2,1);
-				pstmt.execute();
-				//Redirige a checkout.jsp
-	            nextPage = "checkout.jsp";
+				//Instancio objeto para consulta preparada
+				stmt = conn.prepareStatement(sqlpedido,Statement.RETURN_GENERATED_KEYS);
+
+				//Compruebo si el alta ha sido correcto y Obtenemos ID del pedido creado
+				int count = stmt.executeUpdate();
+				if (count > 0) {
+					
+					ResultSet recuperaIDs = stmt.getGeneratedKeys();
+					int idgenerado = 0;
+					if (recuperaIDs.next()) {
+						idgenerado = recuperaIDs.getInt(1);
+					}
+					
+					//Procedo al alta de los artículos del pedido
+					String sqldetallepedido = "INSERT INTO lineapedidos (idLibroFK, idPedidoFK, cantidadPedido) VALUES (?,?,?)";
+					int totalarticulos = 0;
+
+					Iterator<ElementoPedido> iter = elCarrito.iterator();
+					
+					while(iter.hasNext()){
+						ElementoPedido altaPedido = (ElementoPedido)iter.next();
+					    System.out.println("ID Libro: " + altaPedido.getIdLibro());
+					    System.out.println("Cantidad: " + altaPedido.getCantidad());
+					    
+					    stmt = conn.prepareStatement(sqldetallepedido);
+						//stmt.setInt(1, idLibroFK);
+						stmt.setInt(2, idgenerado);
+						//stmt.setInt(3, cantidadPedido);
+						//stmt.executeUpdate();
+						totalarticulos++;
+					}
+
+					System.out.println("Pedido Registrado Correctamente con ID: " + idgenerado + " y un total de: " + totalarticulos + " artículos.");
+					
+		            // Coloca el precioTotal y la cantidadTotal en el request
+		            request.setAttribute("precioTotal", sb.toString());
+		            request.setAttribute("cantidadTotal", cantidadTotalOrdenada + "");
+		            nextPage = "/checkout.jsp";
+				}
 	            
 	            /**
 	             * Cerramos objetos
 	             */
-	            if(pstmt != null) {
-	            	pstmt.close();
+	            if(stmt != null) {
+	            	stmt.close();
 				}
 		
 				if(conn != null) {
@@ -194,7 +248,9 @@ public class ServletControlador extends HttpServlet {
 					conn.close();
 				}
 				
-			} catch(SQLException ex) {}
+			} catch(SQLException ex) {
+				System.out.println("Error al realizar la insercción de datos: " + ex.getMessage());
+			}
 
         }
         ServletContext servletContext = getServletContext();

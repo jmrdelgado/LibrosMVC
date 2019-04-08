@@ -171,7 +171,9 @@ public class LoginServlet extends HttpServlet {
 				throw new ServletException("DataSource desconocida 'mysql_tiendalibros'");
 			}
 				
-		} catch(NamingException ex){}
+		} catch(NamingException ex){
+			ex.printStackTrace();
+		}
 				
 	}
 				
