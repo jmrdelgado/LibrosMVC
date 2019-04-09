@@ -125,7 +125,7 @@ public class ServletControlador extends HttpServlet {
                 while(!encontrado&&iter.hasNext()) {
                     ElementoPedido unElementoPedido = (ElementoPedido)iter.next();
 
-                    if(unElementoPedido.getIdLibro() == nuevoElementoPedido.getIdLibro()) {
+                    if(unElementoPedido.getIdlibro() == nuevoElementoPedido.getIdlibro()) {
                         unElementoPedido.setCantidad(unElementoPedido.getCantidad() + nuevoElementoPedido.getCantidad());
                         encontrado = true;
                     }
@@ -204,18 +204,14 @@ public class ServletControlador extends HttpServlet {
 					
 					while(iter.hasNext()){
 						ElementoPedido altaPedido = (ElementoPedido)iter.next();
-					    System.out.println("ID Libro: " + altaPedido.getIdLibro());
-					    System.out.println("Cantidad: " + altaPedido.getCantidad());
 					    
 					    stmt = conn.prepareStatement(sqldetallepedido);
-						//stmt.setInt(1, idLibroFK);
+						stmt.setInt(1, altaPedido.getIdlibro());
 						stmt.setInt(2, idgenerado);
-						//stmt.setInt(3, cantidadPedido);
-						//stmt.executeUpdate();
+						stmt.setInt(3, altaPedido.getCantidad());
+						stmt.executeUpdate();
 						totalarticulos++;
 					}
-
-					System.out.println("Pedido Registrado Correctamente con ID: " + idgenerado + " y un total de: " + totalarticulos + " artículos.");
 					
 		            // Coloca el precioTotal y la cantidadTotal en el request
 		            request.setAttribute("precioTotal", sb.toString());
