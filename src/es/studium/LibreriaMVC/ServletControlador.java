@@ -57,7 +57,7 @@ public class ServletControlador extends HttpServlet {
     	
     	try	{
 			
-			// Crea un contecto para poder luego buscar el recurso DataSource
+			// Crea un contexto para poder luego buscar el recurso DataSource
 			InitialContext ctx = new InitialContext();
 			
 			// Busca el recurso DataSource en el contexto
@@ -74,19 +74,6 @@ public class ServletControlador extends HttpServlet {
     	
         LibrosMVC.cargarDatos();
         
-        try	{
-			
-			// Crea un contecto para poder luego buscar el recurso DataSource
-			InitialContext ctx = new InitialContext();
-			
-			// Busca el recurso DataSource en el contexto
-			pool = (DataSource)ctx.lookup("java:comp/env/jdbc/mysql_tiendalibros");
-				
-			if(pool == null) {
-				throw new ServletException("DataSource desconocida 'mysql_tiendalibros'");
-			}
-				
-		} catch(NamingException ex){}
     }
 
     /**
