@@ -90,7 +90,7 @@
 	        <br/>
 	        <form name="checkoutForm" action="shopping" method="POST">
 	            <input type="hidden" name="todo" value="checkout">
-	            <input class="btn btn-success" type="submit" value="Confirmar compra">
+	            <input class="btn btn-success" type="submit" value="Realizar Pedido de Compra">
 	        </form>
 	        <%}%>
 
