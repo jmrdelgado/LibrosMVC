@@ -104,6 +104,7 @@ public class LoginServlet extends HttpServlet {
 	
 						{
 							session.setAttribute("usuario", usuario);
+							session.setAttribute("idUser", rset.getString("idUsuario"));
 						}
 	
 							//Comprobamos si el usuario es administrador

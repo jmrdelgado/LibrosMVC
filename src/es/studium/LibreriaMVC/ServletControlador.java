@@ -176,8 +176,11 @@ public class ServletControlador extends HttpServlet {
 			SimpleDateFormat formatohoy = new SimpleDateFormat("yyyy-MM-dd");
 			String fechapedido = formatohoy.format(hoy);
 			
+			//Obtenemos idUsuario logado
+			String idUserLogado = (String) session.getAttribute("idUser");
+			
 			//Construimos consulta
-            String sqlpedido = "INSERT INTO pedidos (fechaPedido,idUsuarioFK) VALUES ('"+ fechapedido +"', '1')";
+            String sqlpedido = "INSERT INTO pedidos (fechaPedido,idUsuarioFK) VALUES ('"+ fechapedido +"', '" + idUserLogado + "')";
             
 			try {
 				//Solicito conexión al Pool
