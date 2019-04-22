@@ -47,6 +47,15 @@ public class LoginServlet extends HttpServlet {
 	* @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	*/
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doPost(request, response);	
+	}
+			
+	/**
+	* @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	*/
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		Connection conn = null;
@@ -154,16 +163,6 @@ public class LoginServlet extends HttpServlet {
 				} catch(SQLException ex) {}
 			}
 				response.getWriter().append("Served at: ").append(request.getContextPath());
-			
-	}
-			
-	/**
-	* @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	*/
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 			
 	public void init(ServletConfig config) throws ServletException	{

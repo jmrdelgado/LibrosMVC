@@ -21,7 +21,7 @@
 	</head>
 	<body>
 		<div class="fondo-form"> 
-			<form class="form-signin" method="get" action="login">
+			<form class="form-signin" method="post" action="login">
 				<div class="text-center mb-4 logotipo">
 				<img src="images/img_login.png" alt="Imagen Libro MVC" class="logo-login">
 					<h1 class="h5 font-weight-normal titulo-tienda">Acceso Usuarios Registrados</h1>
@@ -33,7 +33,6 @@
 							<hr>
 							<input class="btn btn-sm btn-primary btn-block" type="submit" name="Acceder" value="Validar Datos de Usuario"/>
 							<input class="btn btn-sm btn-primary btn-block" type="reset" name="Reiniciar" value="Reiniciar Formulario"/>
-							<a href="order.jsp" class="btn btn-sm btn-primary btn-block" type="submit" name="Inicio">Volver a la Tienda</a>
 						</div>
 					</div>
 				</div>

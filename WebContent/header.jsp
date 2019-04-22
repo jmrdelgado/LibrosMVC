@@ -12,7 +12,7 @@
         	<img src="images/cab_librosmvc.svg" alt="icono-login">
    		</div>
    		<div class="acceso_panel">
-       		<a href="controlusers.jsp" alt="Acceso Usuarios"><img src="images/ico_acceso.png" alt="Cerrar Sesión">Cerrar Sesión</a>
+       		<a href="logout" alt="Acceso Usuarios"><img src="images/ico_acceso.png" alt="Cerrar Sesión"> Cerrar Sesión</a>
        	</div>
 	</body>
 </html>
