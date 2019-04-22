@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -104,15 +105,23 @@ public class LoginServlet extends HttpServlet {
 						{
 							session.setAttribute("usuario", usuario);
 						}
-	
-						out.println("<p>Hola, " + usuario + "!</p>");
-						out.println("<p>Menú de opciones</p>");
-						out.println("<ul>");
-						out.println("<li><a href='#'>Libros</a></li>");
-						out.println("<li><a href='#'>Autores</a></li>");
-						out.println("<li><a href='#'>Editoriales</a></li>");
-						out.println("<li><a href='#'>Pedidos</a></li>");
-						out.println("<p><a href='hazalgo'>Haz algo</a></p>");
+							
+							//Comprobamos si el usuario es administrador
+							String rol = rset.getString("perfiluser");
+							if (rol.equals("administrador")) {
+								out.println("<p>Hola, " + usuario + "(" + rol + ")</p>");
+								out.println("<p>Menú de opciones</p>");
+								out.println("<ul>");
+								out.println("<li><a href='#'>Libros</a></li>");
+								out.println("<li><a href='#'>Autores</a></li>");
+								out.println("<li><a href='#'>Editoriales</a></li>");
+								out.println("<li><a href='#'>Pedidos</a></li>");
+								out.println("<p><a href='hazalgo'>Haz algo</a></p>");
+							} else if (rol.contentEquals("cliente")) {
+								RequestDispatcher requestDispatcher = request.getRequestDispatcher("order.jsp");
+						        requestDispatcher.forward(request, response);
+							}
+							
 					}
 			
 				}
