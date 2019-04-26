@@ -18,6 +18,10 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1"
 		<servlet-name>LogoutServlet</servlet-name>
 		<servlet-class>es.studium.LibreriaMVC.LogoutServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>PanelDashboard</servlet-name>
+		<servlet-class>es.studium.LibreriaMVC.DashBoardControlador</servlet-class>
+	</servlet>
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>
