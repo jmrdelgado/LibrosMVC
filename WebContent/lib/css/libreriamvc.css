@@ -246,3 +246,11 @@ a:hover {
     color: #777;
   }
 }
+
+
+/* Modificaciones css Bootstrap */
+.nav {
+	background-color: #FFF;
+	margin: 5px 0px;
+	border-radius: 5px;
+}
