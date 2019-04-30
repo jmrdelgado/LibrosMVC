@@ -23,7 +23,35 @@
     <body>
     	<div class="fondo-carrito">
     		<%@include file = "header.jsp"%>
-
+			
+			<!--  Panel de navegación -->			
+			<ul class="nav nav-justified">
+			    <li class="nav-item dropdown"><a href="#datepicker.html" class="nav-link dropdown-toggle" data-toggle="dropdown">Libros</a>
+			    	<div class="dropdown-menu">
+			            <a href="#" class="dropdown-item">Alta</a>
+			            <a href="#" class="dropdown-item">Modificación</a>
+			        </div>
+			    </li>
+			    <li class="nav-item dropdown"><a href="#datepicker.html" class="nav-link dropdown-toggle" data-toggle="dropdown">Autores</a>
+			        <div class="dropdown-menu">
+			            <a href="#" class="dropdown-item">Alta</a>
+			            <a href="#" class="dropdown-item">Modificación</a>
+			        </div>
+			     
+			    </li>
+			    <li class="nav-item dropdown"><a href="#datepicker.html" class="nav-link dropdown-toggle" data-toggle="dropdown">Pedidos</a>
+			    	<div class="dropdown-menu">
+			            <a href="#" class="dropdown-item">Consultar</a>
+			        </div>
+			    </li>
+			    <li class="nav-item dropdown"><a href="#datepicker.html" class="nav-link dropdown-toggle" data-toggle="dropdown">Editoriales</a>
+			    	<div class="dropdown-menu">
+			            <a href="#" class="dropdown-item">Alta</a>
+			            <a href="#" class="dropdown-item">Modificación</a>
+			        </div>
+			    </li>
+			</ul>
+			
     		<br>
 	        <h3 class="h3 titulo-subrayado">PANEL <strong>DASHBOARD</strong></h3>
 	
