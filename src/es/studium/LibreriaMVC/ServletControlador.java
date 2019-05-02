@@ -25,8 +25,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
-import org.eclipse.jdt.internal.compiler.IDebugRequestor;
-
 import com.mysql.jdbc.Statement;
 
 /**
