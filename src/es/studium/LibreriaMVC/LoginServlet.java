@@ -119,7 +119,7 @@ public class LoginServlet extends HttpServlet {
 							//Comprobamos si el usuario es administrador
 							String rol = rset.getString("perfiluser");
 							if (rol.equals("administrador")) {
-								RequestDispatcher requestDispatcher = request.getRequestDispatcher("/dashboard");
+								RequestDispatcher requestDispatcher = request.getRequestDispatcher("/paneladmin.jsp");
 						        requestDispatcher.forward(request, response);
 							} else if (rol.equals("cliente")) {
 								RequestDispatcher requestDispatcher = request.getRequestDispatcher("/shopping");
