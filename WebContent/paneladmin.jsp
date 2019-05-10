@@ -26,36 +26,41 @@
 			
 			<!--  Panel de navegación -->			
 			<ul class="nav nav-justified">
-			    <li class="nav-item dropdown"><a href="#datepicker.html" class="nav-link dropdown-toggle" data-toggle="dropdown">Libros</a>
-			    	<div class="dropdown-menu">
-			            <a href="#" class="dropdown-item">Alta</a>
-			            <a href="#" class="dropdown-item">Modificación</a>
-			        </div>
-			    </li>
-			    <li class="nav-item dropdown"><a href="#datepicker.html" class="nav-link dropdown-toggle" data-toggle="dropdown">Autores</a>
-			        <div class="dropdown-menu">
-			            <a href="#" class="dropdown-item">Alta</a>
-			            <a href="#" class="dropdown-item">Modificación</a>
-			        </div>
-			     
-			    </li>
-			    <li class="nav-item dropdown"><a href="#datepicker.html" class="nav-link dropdown-toggle" data-toggle="dropdown">Pedidos</a>
-			    	<div class="dropdown-menu">
-			            <a href="#" class="dropdown-item">Consultar</a>
-			        </div>
-			    </li>
-			    <li class="nav-item dropdown"><a href="#datepicker.html" class="nav-link dropdown-toggle" data-toggle="dropdown">Editoriales</a>
-			    	<div class="dropdown-menu">
-			            <a href="#" class="dropdown-item">Alta</a>
-			            <a href="#" class="dropdown-item">Modificación</a>
-			        </div>
-			    </li>
+			    <li class="nav-item dropdown"><a href="#datepicker.html" class="nav-link" data-toggle="dropdown">Libros</a></li>
+			    <li class="nav-item dropdown"><a href="#datepicker.html" class="nav-link" data-toggle="dropdown">Autores</a></li>
+			    <li class="nav-item dropdown"><a href="#datepicker.html" class="nav-link" data-toggle="dropdown">Consultar Pedidos</a></li>
+			    <li class="nav-item dropdown"><a href="#datepicker.html" class="nav-link" data-toggle="dropdown">Editoriales</a></li>
 			</ul>
 			
     		<br>
 	        <h3 class="h3 titulo-subrayado">PANEL <strong>DASHBOARD</strong></h3>
-	
-
+			
+			<!-- Bienvenida -->	
+			<div class="left" style="margin: 0 0 0 0px; padding: 0px 0px 10px 0px;">
+				<div style="width:800px; margin:0 auto; background-color: #FFF;padding:20px;20px;border-radius:5px;">
+					<div>
+						<p style="padding-top: 10px; padding-bottom: 13px; font-size: 26px; color:#ff6000;">Bienvenidos/@s ...</p>
+						<div>
+							<div id="bienvenida" style="min-height:100%;">
+								<div class="imgpresentacion">
+									<img src="images/libros_infantiles.jpg" style="height:185px; margin-right: 15px;">
+									<img src="images/sagas.jpg" height="185px">
+								</div>
+								<br>
+									<div>
+										<p style="font-size: 20px; font-weight:bold;">Sumérgete en el universo de los libros</p>
+										<p style="text-align:justify">Déjate envolver por el maravilloso mundo de la lectura. Gracias a la amplia selección que encontrarás en nuestra sección de libros nutrirás tu mente y disfrutarás de los mejores momentos de desconexión de la rutina con las historias más apasionantes. Sea cual sea tu gusto, te aseguramos que nosotros tenemos el libro perfecto para ti.</p></div>
+								<br>
+								   <div>
+								   <p style="font-size: 20px; font-weight:bold;">Disfruta de tus libros favorítos.</p>
+								   <p style="text-align:justify">Gran responsabilidad de que un libro te apasione es su autor. Aquí podrás encontrar libros de diferente temática que te inspirarán; muchos de ellos firmados por una gran variedad de afamados autores tanto nacionales como internacionales. Escoge entre perfectos ensayos así como libros de autoayuda con los que sentirás inspiración para llegar muy lejos, <strong>¡No te los pierdas!</strong></p></div>
+							</div>
+				    	</div>
+					</div>			
+				</div>
+			</div>
+			<!-- End Bienvenida -->
+			
 	        <%@include file = "footer.jsp"%>
    		
 	        <!-- Optional JavaScript -->
