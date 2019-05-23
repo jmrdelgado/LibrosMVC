@@ -26,7 +26,7 @@
 			
 			<!--  Panel de navegación -->			
 			<ul class="nav nav-justified">
-			    <li class="nav-item dropdown"><a href="#datepicker.html" class="nav-link" data-toggle="dropdown">Libros</a></li>
+			    <li class="nav-item dropdown"><a href="adminlibros" class="nav-link">Libros</a></li>
 			    <li class="nav-item dropdown"><a href="#datepicker.html" class="nav-link" data-toggle="dropdown">Autores</a></li>
 			    <li class="nav-item dropdown"><a href="#datepicker.html" class="nav-link" data-toggle="dropdown">Consultar Pedidos</a></li>
 			    <li class="nav-item dropdown"><a href="#datepicker.html" class="nav-link" data-toggle="dropdown">Editoriales</a></li>
@@ -34,7 +34,7 @@
 			
     		<br>
 	        <h3 class="h3 titulo-subrayado">PANEL <strong>DASHBOARD</strong></h3>
-			
+
 			<!-- Bienvenida -->	
 			<div class="left" style="margin: 0 0 0 0px; padding: 0px 0px 10px 0px;">
 				<div style="width:800px; margin:0 auto; background-color: #FFF;padding:20px;20px;border-radius:5px;">
