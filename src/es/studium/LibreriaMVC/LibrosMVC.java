@@ -1,7 +1,10 @@
 package es.studium.LibreriaMVC;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -94,6 +97,76 @@ public class LibrosMVC {
         }
     }
 
+/**
+ * Creamos métodos para listar libros existentes en DBase
+ * @throws SQLException 
+ * @throws ServletException 
+ */
+public List<Libros> consultaLibros() throws SQLException, ServletException {
+	
+	//Instanciamos objeto para realizar un Pool de conexiones a la base de datos
+ 	DataSource pool = null;
+		
+		try	{
+				
+			// Crea un contexto para poder luego buscar el recurso DataSource
+			InitialContext ctx = new InitialContext();
+			
+			// Busca el recurso DataSource en el contexto
+			pool = (DataSource)ctx.lookup("java:comp/env/jdbc/mysql_tiendalibros");
+				
+			if(pool == null) {
+				throw new ServletException("DataSource desconocida 'mysql_tiendalibros'");
+			}
+				
+		} catch(NamingException ex){
+			ex.printStackTrace();
+		}
+ 	
+ 	// Creamos objetos para la conexión
+    Connection conn = null;
+    Statement stmt = null;
+    
+    //Instanciamos objeto de la clase libros
+    List<Libros> mostrarLibros = new ArrayList<Libros>();
+    
+    String sqllibros = "SELECT * FROM libros ORDER BY tituloLibro ASC";
+    
+    //Obtener una conexión del pool
+	conn = pool.getConnection();
+	stmt = conn.createStatement();
+	
+	ResultSet rst = stmt.executeQuery(sqllibros);
+	
+	while (rst.next()) {
+		int idlibro = rst.getInt("idlibro");
+		String tituloLibro = rst.getString("tituloLibro");
+		double precioLibro = rst.getDouble("precioLibro");
+		int existenciasLibro = rst.getInt("existenciasLibro");
+		String isbn = rst.getString("isbn");
+		int idEditorialFK = rst.getInt("idEditorialFK");
+		int idAutorFK = rst.getInt("idAutorFK");
+		
+		Libros libro = new Libros(idlibro,tituloLibro,precioLibro,existenciasLibro,isbn,idEditorialFK,idAutorFK);
+		
+		mostrarLibros.add(libro);
+	}
+	
+	/**
+	 * Cerramos conexiones
+	 */
+    if(stmt != null)    {
+        stmt.close();
+    }
+
+    if(conn != null) {
+        conn.close();
+    }
+    
+    //Retornamos colección de objetos
+	return mostrarLibros;
+}
+    
     /**
     * Devuelve el número de libros obtenidos
     */

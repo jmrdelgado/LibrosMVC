@@ -68,22 +68,7 @@ public class LibrosControlador extends HttpServlet {
         
         
 	
-		/*
-			out.println("<html>");
-				out.println("<head>");
-					out.println("<title>Libros MVC</title>");
-					out.println("<link rel='stylesheet' type='text/css' href='lib/css/bootstrap.min.css'>");
-			    	out.println("<link rel='stylesheet' type='text/css' href='lib/css/libreriamvc.css'>");
-				out.println("</head>");
-				out.println("<body style='background-color:#F5F5F5;'>");
-					out.println("<div class='fondo-form'>");
-					out.println("<div class='text-center mb-4 logotipo' style='padding:20px;'>");
-					out.println("<img src='images/ico_error.png' style='width:100px !important;'>");
-					out.println("<h1 class='h4 font-weight-normal titulo-tienda'>Listado de Libros</h1>");
-					out.println("</div>");
-					out.println("</div>");
-					out.println("</body>");
-					out.println("</html>");*/
+		
 				
 				System.out.println("Enrutación realizada correctamente");
 		

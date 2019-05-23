@@ -15,7 +15,7 @@ public class Libros {
 	 */
 	private int idlibro;
 	private String tituloLibro;
-	private float precioLibro;
+	private double precioLibro;
 	private int existenciasLibro;
 	private String isbn;
 	private int idEditorialFK;
@@ -24,7 +24,7 @@ public class Libros {
 	/**
 	 * Constructor parametrizado
 	 */
-	public Libros (int idlibro, String tituloLibro, float precioLibro, int existenciasLibro, String isbn, int idEditorialFK, int idAutorFK) {
+	public Libros (int idlibro, String tituloLibro, double precioLibro, int existenciasLibro, String isbn, int idEditorialFK, int idAutorFK) {
 		this.setIdlibro(idlibro);
 		this.setTituloLibro(tituloLibro);
 		this.setPrecioLibro(precioLibro);
@@ -54,11 +54,11 @@ public class Libros {
 		this.tituloLibro = tituloLibro;
 	}
 
-	public float getPrecioLibro() {
+	public double getPrecioLibro() {
 		return precioLibro;
 	}
 
-	public void setPrecioLibro(float precioLibro) {
+	public void setPrecioLibro(double precioLibro) {
 		this.precioLibro = precioLibro;
 	}
 
