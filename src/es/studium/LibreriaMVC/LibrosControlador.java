@@ -3,19 +3,18 @@ package es.studium.LibreriaMVC;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
+
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.annotation.WebServlet;
 import javax.sql.DataSource;
 
 /**
@@ -49,7 +48,6 @@ public class LibrosControlador extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doPost(request, response);
-		System.out.println("Comprobando enrutador");
 	}
 			
 	/**
@@ -59,8 +57,16 @@ public class LibrosControlador extends HttpServlet {
 		
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		Connection conn = null;
-		Statement stmt = null;
+
+
+		//Instanciamos objetos para obtener conexión a DBase
+    	Connection conn = null;
+    	Statement stmt = null;
+    	
+    	// Recupera la sesión actual o crea una nueva si no existe
+        HttpSession session = request.getSession(true);
+        
+        
 	
 		/*
 			out.println("<html>");
