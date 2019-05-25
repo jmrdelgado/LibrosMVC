@@ -3,7 +3,9 @@ package es.studium.LibreriaMVC;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -31,9 +33,6 @@ public class LibrosControlador extends HttpServlet {
 	 * Revisión de versión
 	 */
 	private static final long serialVersionUID = -7835560411816124803L;
-
-	// Pool de conexiones a la base de datos
-	private DataSource pool;
 	
 	/**
 	* @see HttpServlet#HttpServlet()
@@ -46,57 +45,34 @@ public class LibrosControlador extends HttpServlet {
 	* @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	*/
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doPost(request, response);
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+    	
+    	// Recuperamos la sesión actual o crea una nueva si no existe
+        HttpSession session = request.getSession(true);
+
+        //Obtenemos petición y Establemos vista para mostrar listados de libros 
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("listbooks.jsp");
+		
+		try {
+			List<Libro> mostrarLibros = LibrosMVC.consultaLibros();
+			//request.setAttribute("libros", mostrarLibros);
+			session.setAttribute("libros", mostrarLibros);
+			requestDispatcher.forward(request, response);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 	}
 			
 	/**
 	* @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	*/
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		response.setContentType("text/html;charset=UTF-8");
-		PrintWriter out = response.getWriter();
-
-
-		//Instanciamos objetos para obtener conexión a DBase
-    	Connection conn = null;
-    	Statement stmt = null;
-    	
-    	// Recupera la sesión actual o crea una nueva si no existe
-        HttpSession session = request.getSession(true);
-        
-        
-	
-		
-				
-				System.out.println("Enrutación realizada correctamente");
-		
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("listbooks.jsp");
-		        requestDispatcher.forward(request, response);
-		        
-				response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-			
-	public void init(ServletConfig config) throws ServletException	{
-			
-		try	{
-				
-			// Crea un contecto para poder luego buscar el recurso DataSource
-			InitialContext ctx = new InitialContext();
-			
-			// Busca el recurso DataSource en el contexto
-			pool = (DataSource)ctx.lookup("java:comp/env/jdbc/mysql_tiendalibros");
-				
-			if(pool == null) {
-				throw new ServletException("DataSource desconocida 'mysql_tiendalibros'");
-			}
-				
-		} catch(NamingException ex){
-			ex.printStackTrace();
-		}
-				
-	}
-				
+		doGet(request, response);
+	}				
 		
 }

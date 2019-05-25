@@ -102,7 +102,7 @@ public class LibrosMVC {
  * @throws SQLException 
  * @throws ServletException 
  */
-public List<Libros> consultaLibros() throws SQLException, ServletException {
+public static List<Libro> consultaLibros() throws SQLException, ServletException {
 	
 	//Instanciamos objeto para realizar un Pool de conexiones a la base de datos
  	DataSource pool = null;
@@ -128,7 +128,7 @@ public List<Libros> consultaLibros() throws SQLException, ServletException {
     Statement stmt = null;
     
     //Instanciamos objeto de la clase libros
-    List<Libros> mostrarLibros = new ArrayList<Libros>();
+    List<Libro> mostrarLibros = new ArrayList<Libro>();
     
     String sqllibros = "SELECT * FROM libros ORDER BY tituloLibro ASC";
     
@@ -147,7 +147,7 @@ public List<Libros> consultaLibros() throws SQLException, ServletException {
 		int idEditorialFK = rst.getInt("idEditorialFK");
 		int idAutorFK = rst.getInt("idAutorFK");
 		
-		Libros libro = new Libros(idlibro,tituloLibro,precioLibro,existenciasLibro,isbn,idEditorialFK,idAutorFK);
+		Libro libro = new Libro(idlibro,tituloLibro,precioLibro,existenciasLibro,isbn,idEditorialFK,idAutorFK);
 		
 		mostrarLibros.add(libro);
 	}

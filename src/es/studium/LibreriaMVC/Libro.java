@@ -8,7 +8,7 @@ package es.studium.LibreriaMVC;
 *
 */
 
-public class Libros {
+public class Libro {
 	
 	/**
 	 * Propiedades y Atributos
@@ -24,7 +24,7 @@ public class Libros {
 	/**
 	 * Constructor parametrizado
 	 */
-	public Libros (int idlibro, String tituloLibro, double precioLibro, int existenciasLibro, String isbn, int idEditorialFK, int idAutorFK) {
+	public Libro (int idlibro, String tituloLibro, double precioLibro, int existenciasLibro, String isbn, int idEditorialFK, int idAutorFK) {
 		this.setIdlibro(idlibro);
 		this.setTituloLibro(tituloLibro);
 		this.setPrecioLibro(precioLibro);

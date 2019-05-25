@@ -33,74 +33,47 @@
 			</ul>
 
     		<br>
-	        <h3 class="h3 titulo-subrayado">LISTADO <strong>LIBROS DISPONIBLES</strong></h3>
+	        <h3 class="h3 titulo-subrayado">LIBROS <strong> DISPONIBLES</strong></h3>
 
-	        <p><strong>Elegir un libro y la cantidad:</strong></p>
-	
-	        <form  class="form-inline" name="AgregarForm" action="shopping" method = "POST">
-	            <input type="hidden" name="todo" value="add">
-	            Título:
-	            <select name="idLibro" class="form-control">
-	                <%
-	                // Scriplet 1: Carga los libros en el SELECT
-	                for(int i = 0; i <LibrosMVC.tamano();i++) {
-	                    out.println("<option value='" + i + "'>");
-	                    out.println(LibrosMVC.getTitulo(i) + " | " + LibrosMVC.getAutor(i)
-	                    + " | " + LibrosMVC.getPrecio(i));
-	                    out.println("</option>");
-	                }
-	                %>
-	            </select>
-	            Cantidad: <input class="form-control" type="text" name="cantidad" size="10" value="1">
-	            <input class="btn btn-success" type="submit" value="Añadir a la cesta">
-	        </form>
-	
-	        <%
-	        // Scriplet 2: Chequea el contenido de la cesta
-	        List<ElementoPedido> cesta = (List<ElementoPedido>)
-	        session.getAttribute("carrito");
-	        if(cesta != null && cesta.size() > 0) {
-	        %>
-	
-			<br>
-			<h3 class="h3 titulo-subrayado">MI <strong>CARRITO</strong></h3>
-	        <p><strong>Tu cesta contiene:</strong></p>
-	
+	        <p><strong>Listado de títulos existentes actualmente:</strong></p>
+		
 	        <table border="1" cellspacing="0" cellpadding="5" class="table">
 	        	<thead class="thead-dark">
 		            <tr>
-		                <th scope="col">Título</th>
-		                <th scope="col">Autor</th>
-		                <th scope="col">Precio</th>
-		                <th scope="col">Cantidad</th><th>&nbsp;</th>
+		            	<th scope="col" style="text-align:center;">Id</th>
+		                <th scope="col" style="text-align:center;">Título</th>
+		                <th scope="col" style="text-align:center;">Precio</th>
+		                <th scope="col" style="text-align:center;">Existencias</th>
+		                <th scope="col" style="text-align:center;">ISBN</th>
+		                <th scope="col" style="text-align:center;">Editorial</th>
+		                <th scope="col" style="text-align:center;">Autor</th>
 		            </tr>
 		        </thead>
-	
-	            <%
-	            // Scriplet 3: Muestra los libros del carrito
-	            for(int i = 0; i<cesta.size(); i++) {
-	                ElementoPedido elementoPedido = cesta.get(i);
-	            %>
-	            <tr class="table-light">
-	            <form name="borrarForm" action="shopping" method="POST">
-	                <input type="hidden" name="todo" value="remove">
-	                <input type="hidden" name="indiceElemento"  value="<%= i%>">
-	                <td><%= elementoPedido.getTitulo() %></td>
-	                <td><%= elementoPedido.getAutor() %></td>
-	                <td align="right"><%= elementoPedido.getPrecio()%> €</td>
-	                <td align="center"><%=elementoPedido.getCantidad() %></td>
-	                <td align="center"><input class="btn btn-warning" type="submit" value="Eliminar de la cesta"></td>
-	            </form>
-	            </tr>
-	
-	            <%}%>
+				<tbody>
+					<%
+					//Recuperamnos contenido de Array almacenado en sesión
+					List<Libro> consultaLibros = (List<Libro>) session.getAttribute("libros");
+			        if(consultaLibros != null && consultaLibros.size() > 0) {
+			        %>
+			        
+			        <%
+			        //Mostramos datos obtenidos
+			        for (int i = 0; i < consultaLibros.size(); i++) {
+			        	Libro registrolibro = consultaLibros.get(i);
+			        %>        
+						<tr class="table-light">
+							<td style="text-align:center;"><%= registrolibro.getIdlibro() %></td>
+							<td><%= registrolibro.getTituloLibro() %></td>
+							<td style="text-align:right;"><%= registrolibro.getPrecioLibro() %> €</td>
+							<td style="text-align:center;"><%= registrolibro.getExistenciasLibro() %> Und.</td>
+							<td style="text-align:center;"><%= registrolibro.getIsbn() %></td>
+							<td style="text-align:center;"><%= registrolibro.getIdEditorialFK() %></td>
+							<td style="text-align:center;"><%= registrolibro.getIdAutorFK() %></td>
+						</tr>
+	            	<%}} %>
+	            </tbody>
 	        </table>
 	        <br/>
-	        <form name="checkoutForm" action="shopping" method="POST">
-	            <input type="hidden" name="todo" value="checkout">
-	            <input class="btn btn-success" type="submit" value="Realizar Pedido de Compra">
-	        </form>
-	        <%}%>
 
 	        <%@include file = "footer.jsp"%>
    		
