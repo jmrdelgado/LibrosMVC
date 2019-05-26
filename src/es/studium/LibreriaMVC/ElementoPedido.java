@@ -54,4 +54,5 @@ public class ElementoPedido {
     public String getPrecio() {
         return LibrosMVC.getPrecio(idLibro);
     }
+
 }

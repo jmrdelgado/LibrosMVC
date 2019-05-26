@@ -45,8 +45,6 @@
 		                <th scope="col" style="text-align:center;">Precio</th>
 		                <th scope="col" style="text-align:center;">Existencias</th>
 		                <th scope="col" style="text-align:center;">ISBN</th>
-		                <th scope="col" style="text-align:center;">Editorial</th>
-		                <th scope="col" style="text-align:center;">Autor</th>
 		            </tr>
 		        </thead>
 				<tbody>
@@ -67,8 +65,6 @@
 							<td style="text-align:right;"><%= registrolibro.getPrecioLibro() %> €</td>
 							<td style="text-align:center;"><%= registrolibro.getExistenciasLibro() %> Und.</td>
 							<td style="text-align:center;"><%= registrolibro.getIsbn() %></td>
-							<td style="text-align:center;"><%= registrolibro.getIdEditorialFK() %></td>
-							<td style="text-align:center;"><%= registrolibro.getIdAutorFK() %></td>
 						</tr>
 	            	<%}} %>
 	            </tbody>

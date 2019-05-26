@@ -92,9 +92,11 @@ public class ServletControlador extends HttpServlet {
     	
     	// Recupera la sesión actual o crea una nueva si no existe
         HttpSession session = request.getSession(true);
+                
         // Recupera el carrito de la sesión actual
         List<ElementoPedido> elCarrito = (ArrayList<ElementoPedido>)
         session.getAttribute("carrito");
+        
         // Determina a qué página jsp se redirigirá
         String nextPage = "";
         String todo = request.getParameter("todo");
@@ -174,13 +176,12 @@ public class ServletControlador extends HttpServlet {
 			SimpleDateFormat formatohoy = new SimpleDateFormat("yyyy-MM-dd");
 			String fechapedido = formatohoy.format(hoy);
 			
-			//Obtenemos idUsuario logado
 			String idUserLogado = (String) session.getAttribute("idUser");
 			
 			//Construimos consulta
             String sqlpedido = "INSERT INTO pedidos (fechaPedido,idUsuarioFK) VALUES ('"+ fechapedido +"', '" + idUserLogado + "')";
             
-			try {
+            try {
 				//Solicito conexión al Pool
 				conn = pool.getConnection();
 				

@@ -52,8 +52,9 @@
 	                </tr>
 	                <%
 	            }
-	
-	            session.invalidate();
+				
+	            //session.invalidate();
+	            session.removeAttribute("carrito");
 	            %>
 	            <tfoot>
 		            <tr>
