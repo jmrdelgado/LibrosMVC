@@ -26,9 +26,9 @@
     		
     		<!--  Panel de navegación -->			
 			<ul class="nav nav-justified">
-			    <li class="nav-item dropdown"><a href="/listarlibros" class="nav-link" data-toggle="dropdown">Libros</a></li>
+			    <li class="nav-item dropdown"><a href="adminlibros" class="nav-link">Libros</a></li>
 			    <li class="nav-item dropdown"><a href="#datepicker.html" class="nav-link" data-toggle="dropdown">Autores</a></li>
-			    <li class="nav-item dropdown"><a href="#datepicker.html" class="nav-link" data-toggle="dropdown">Consultar Pedidos</a></li>
+			    <li class="nav-item dropdown"><a href="adminpedidos" class="nav-link">Consultar Pedidos</a></li>
 			    <li class="nav-item dropdown"><a href="#datepicker.html" class="nav-link" data-toggle="dropdown">Editoriales</a></li>
 			</ul>
 
@@ -59,7 +59,7 @@
 			        for (int i = 0; i < consultaLibros.size(); i++) {
 			        	Libro registrolibro = consultaLibros.get(i);
 			        %>        
-						<tr class="table-light">
+						<tr class="table-light" style="line-height:10px !important;">
 							<td style="text-align:center;"><%= registrolibro.getIdlibro() %></td>
 							<td><%= registrolibro.getTituloLibro() %></td>
 							<td style="text-align:right;"><%= registrolibro.getPrecioLibro() %> €</td>
