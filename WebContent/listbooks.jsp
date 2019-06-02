@@ -67,6 +67,9 @@
 							<td style="text-align:center;"><%= registrolibro.getIsbn() %></td>
 						</tr>
 	            	<%}} %>
+	            		<tr>
+	            			<td colspan="5" style="text-align: right; background-color: #4a4f53; color: #FFF; padding-right: 30px; line-height: 15px;">Total registros: <%= consultaLibros.size() %></td>
+	            		</tr>
 	            </tbody>
 	        </table>
 	        <br/>

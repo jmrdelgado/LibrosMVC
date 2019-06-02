@@ -74,6 +74,9 @@
 							</form>
 						</tr>
 	            	<%}} %>
+	            		<tr>
+	            			<td colspan="6" style="text-align: right; background-color: #4a4f53; color: #FFF; padding-right: 30px; line-height: 15px;">Total registros: <%= consultaPedidos.size() %></td>
+	            		</tr>
 	            </tbody>
 	        </table>
 	        <br/>
