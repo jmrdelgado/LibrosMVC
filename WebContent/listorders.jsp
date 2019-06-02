@@ -29,7 +29,7 @@
 			    <li class="nav-item dropdown"><a href="adminlibros" class="nav-link">Libros</a></li>
 			    <li class="nav-item dropdown"><a href="#" class="nav-link" data-toggle="dropdown">Autores</a></li>
 			    <li class="nav-item dropdown"><a href="adminpedidos" class="nav-link">Consultar Pedidos</a></li>
-			    <li class="nav-item dropdown"><a href="#datepicker.html" class="nav-link" data-toggle="dropdown">Editoriales</a></li>
+			    <li class="nav-item dropdown"><a href="admineditorial" class="nav-link">Editoriales</a></li>
 			</ul>
 
     		<br>

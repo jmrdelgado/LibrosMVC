@@ -2,12 +2,18 @@ package es.studium.LibreriaMVC;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.sql.DataSource;
+
+import sun.management.ConnectorAddressLink;
 
 /**
 *
@@ -19,17 +25,17 @@ import javax.sql.DataSource;
 */
 
 public class EditorialesMVC {
-	
-	Connection conn = null;
+	 
 	PreparedStatement pstmt = null;
 	
 	/*
 	 * Pool de Conexiones
 	 * Solicitamos conexión a base de datos
 	 */
-	public Connection conectar() throws ServletException, SQLException {
+	public static Connection conectar() throws ServletException, SQLException {
 		
 		DataSource pool = null;
+		Connection conn = null;
 		
 		try	{
 				
@@ -54,7 +60,7 @@ public class EditorialesMVC {
 	/*
 	 * Alta Editorial
 	 */
-	public boolean altaEditorial(Editoriales editorial) throws SQLException, ServletException {
+	public boolean altaEditorial(Editorial editorial) throws SQLException, ServletException {
 		
 		//Sql de insercción
 		String strsql = "INSERT INTO editoriales (idEditorial, nombreEditorial) VALUES (?,?)";
@@ -75,9 +81,43 @@ public class EditorialesMVC {
 		return newEditorial;
 	}
 	
-	/*
-	 * Listado de Editoriales
+	/**
+	 * Método para listar Editoriales existentes en DBase
+	 * @throws SQLException 
+	 * @throws ServletException 
 	 */
+	public static List<Editorial> consultaEditoriales() throws SQLException, ServletException {
+				    
+	    //Instanciamos objeto de la clase libros
+	    List<Editorial> mostrarEditoriales = new ArrayList<Editorial>();
+	    
+	    String sqlEditoriales = "SELECT * FROM editoriales ORDER BY nombreEditorial ASC";
+	    
+	    //Obtener conexión del pool y ejecutamos consulta
+		Statement stmt = conectar().createStatement();
+		
+		ResultSet rst = stmt.executeQuery(sqlEditoriales);
+		
+		while (rst.next()) {
+			int idEditorial = rst.getInt("idEditorial");
+			String nombreEditorial = rst.getString("nombreEditorial");
+			
+			Editorial editorial = new Editorial(idEditorial,nombreEditorial);
+			
+			mostrarEditoriales.add(editorial);
+		}
+		
+		/**
+		 * Cerramos conexiones
+		 */
+	    if(stmt != null)    {
+	        stmt.close();
+	        conectar().close();
+	    }
+	    
+	    //Retornamos colección de objetos
+		return mostrarEditoriales;
+	}
 	
 	
 	/*

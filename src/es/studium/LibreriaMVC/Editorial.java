@@ -9,7 +9,7 @@ package es.studium.LibreriaMVC;
 *
 */
 
-public class Editoriales {
+public class Editorial {
 
 	/*
 	 * Propiedades y atributos
@@ -22,7 +22,7 @@ public class Editoriales {
 	 * @param idEditorial
 	 * @param nombreEditorial
 	 */
-	public Editoriales(int idEditorial, String nombreEditorial) {
+	public Editorial(int idEditorial, String nombreEditorial) {
 		
 		this.setIdEditorial(idEditorial);
 		this.setNombreEditorial(nombreEditorial);
