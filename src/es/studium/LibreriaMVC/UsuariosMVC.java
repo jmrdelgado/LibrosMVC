@@ -58,7 +58,7 @@ public class UsuariosMVC {
 	    //Configuramos consulta parametrizada
 	    String user = nomuser;
 	    String pass = passuser;
-	    String sqlUser = "SELECT * FROM usuarios WHERE nombreUsuario = user AND passUsuario = pass";
+	    String sqlUser = "SELECT * FROM usuarios WHERE nombreUsuario = '" + user + "' AND passUsuario = '" + pass + "'";
 	    
 	    //Establecemos conexión y ejecutamos consultada
 	    conn = pool.getConnection();

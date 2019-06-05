@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
+
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
@@ -32,9 +34,6 @@ public class LoginServlet extends HttpServlet {
 	 * Revisión de versión
 	 */
 	private static final long serialVersionUID = -7835560411816124803L;
-
-	// Pool de conexiones a la base de datos
-	private DataSource pool;
 	
 	/**
 	* @see HttpServlet#HttpServlet()
@@ -58,8 +57,11 @@ public class LoginServlet extends HttpServlet {
 		
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		Connection conn = null;
-		Statement stmt = null;
+
+		//Variables para almacenar datos usuario
+		int idUsuario = 0;
+		String nombreUsuario = null;
+		String perfiluser = null;
 	
 		try {
 			out.println("<html>");
@@ -74,10 +76,6 @@ public class LoginServlet extends HttpServlet {
 					out.println("<img src='images/ico_error.png' style='width:100px !important;'>");
 					out.println("<h1 class='h4 font-weight-normal titulo-tienda'>Datos Insuficientes</h1>");
 	
-				// Obtener una conexión del pool
-				conn = pool.getConnection();
-				stmt = conn.createStatement();
-	
 				// Recuperar los parámetros usuario y password de la petición request
 				String usuario = request.getParameter("usuario");
 				String password = request.getParameter("password");
@@ -90,15 +88,21 @@ public class LoginServlet extends HttpServlet {
 					out.println("<h5>Introduzca Contraseña de Acceso...</h5>");
 					out.println("<a href='controlusers.jsp' class='btn btn-sm btn-primary btn-block' style='margin-top:15px;'>Volver a Intentar...<a/>");
 				} else {
-					// Verificar que existe el usuario y su correspondiente	clave
-					String sqlLogin = "SELECT * FROM usuarios WHERE nombreUsuario = '" + usuario + "' AND passUsuario = '" + password + "'";
-					ResultSet rset = stmt.executeQuery(sqlLogin);
+					// Verificar que existe el usuario y su correspondiente	clave					
+					List<Usuario> listaUsuarios = UsuariosMVC.validarUsuario(usuario, password);
 	
-					if(!rset.next()) {
+					if(listaUsuarios.isEmpty()) {
 						// Si el resultset está vacío
 						out.println("<h5>Nombre de usuario o contraseña incorrectos</h5>");
 						out.println("<a href='controlusers.jsp' class='btn btn-sm btn-primary btn-block' style='margin-top:15px;'>Volver a Intentar...<a/>");
 					} else {
+						//Extraemos datos del usuario validado
+						Usuario validaUser = listaUsuarios.get(0);
+						
+						idUsuario = validaUser.getIdUsuario();
+						nombreUsuario = validaUser.getNombreUsuario();
+						perfiluser = validaUser.getPerfiluser();						
+						
 						// Si los datos introducidos son correctos
 						// Crear una sesión nueva y guardar el usuario como variable de sesión
 						// Primero, invalida la sesión si ya existe
@@ -112,16 +116,15 @@ public class LoginServlet extends HttpServlet {
 							synchronized(session)
 	
 						{
-							session.setAttribute("usuario", usuario);
-							session.setAttribute("idUser", rset.getString("idUsuario"));
+							session.setAttribute("usuario", nombreUsuario);
+							session.setAttribute("idUser", idUsuario);
 						}
 	
 							//Comprobamos si el usuario es administrador
-							String rol = rset.getString("perfiluser");
-							if (rol.equals("administrador")) {
+							if (perfiluser.equals("administrador")) {
 								RequestDispatcher requestDispatcher = request.getRequestDispatcher("paneladmin.jsp");
 						        requestDispatcher.forward(request, response);
-							} else if (rol.equals("cliente")) {
+							} else if (perfiluser.equals("cliente")) {
 								RequestDispatcher requestDispatcher = request.getRequestDispatcher("/shopping");
 						        requestDispatcher.forward(request, response);
 							}
@@ -144,40 +147,8 @@ public class LoginServlet extends HttpServlet {
 			
 				// Cerramos objetos
 				out.close();
-			
-				try {
-					if(stmt != null) {
-						stmt.close();
-					}
-			
-					if(conn != null) {
-						// Esto devolvería la conexión al pool
-						conn.close();
-					}
-				} catch(SQLException ex) {}
 			}
 				response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-			
-	public void init(ServletConfig config) throws ServletException	{
-			
-		try	{
-				
-			// Crea un contecto para poder luego buscar el recurso DataSource
-			InitialContext ctx = new InitialContext();
-			
-			// Busca el recurso DataSource en el contexto
-			pool = (DataSource)ctx.lookup("java:comp/env/jdbc/mysql_tiendalibros");
-				
-			if(pool == null) {
-				throw new ServletException("DataSource desconocida 'mysql_tiendalibros'");
-			}
-				
-		} catch(NamingException ex){
-			ex.printStackTrace();
-		}
-				
-	}
-				
+	}				
 		
 }
