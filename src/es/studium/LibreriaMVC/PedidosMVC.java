@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 
 /**
 *
-* @author Jorge
+* @author Jose Manuel Rufo
 * LibrosMVC
 * Encapsula la comunicación con la base de datos
 * Almacena títulos, autores y precios en tres tablas
